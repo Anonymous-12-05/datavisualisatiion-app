@@ -50,23 +50,42 @@ fig7 = px.imshow(correlation_matrix, x=columns_for_heatmap, y=columns_for_heatma
 # Streamlit App
 st.title("Movie Data Visualization")
 
-# Display the Histogram of IMDb Ratings
-st.plotly_chart(fig1)
+# Create a dashboard layout using st.sidebar
+st.sidebar.subheader("Dashboard")
 
-# Display the Bar Chart for Movie Certificates
-st.plotly_chart(fig2)
+# Define a selectbox to choose the visualization
+visualization_option = st.sidebar.selectbox("Select Visualization", ["Histogram", "Bar Chart", "Scatter Plot", "Box Plot", "Pie Chart", "Line Chart", "Heatmap"])
 
-# Display the Scatter Plot of IMDb Ratings vs. IMDb Votes
-st.plotly_chart(fig3)
+# Display the selected visualization in the main content area
+st.subheader("Data Visualization")
 
-# Display the Box Plot of IMDb Ratings by Certificate
-st.plotly_chart(fig4)
+if visualization_option == "Histogram":
+    st.plotly_chart(fig1)
+    st.subheader("Histogram Data")
+    st.table(df[['imdb_rating']])  # Display the table for the histogram data
+elif visualization_option == "Bar Chart":
+    st.plotly_chart(fig2)
+    st.subheader("Bar Chart Data")
+    st.table(certificate_counts)
+elif visualization_option == "Scatter Plot":
+    st.plotly_chart(fig3)
+    st.subheader("Scatter Plot Data")
+    st.table(df[['imbd_votes', 'imdb_rating']])
+elif visualization_option == "Box Plot":
+    st.plotly_chart(fig4)
+    st.subheader("Box Plot Data")
+    st.table(df[['certificate', 'imdb_rating']])
+elif visualization_option == "Pie Chart":
+    st.plotly_chart(fig5)
+    st.subheader("Pie Chart Data")
+    st.table(pd.DataFrame({'Certificate': certificate_distribution.index, 'Number of Movies': certificate_distribution.values}))
+elif visualization_option == "Line Chart":
+    st.plotly_chart(fig6)
+    st.subheader("Line Chart Data")
+    st.table(release_year_counts)
+elif visualization_option == "Heatmap":
+    st.plotly_chart(fig7)
+    st.subheader("Correlation Matrix")
+    st.table(correlation_matrix)
 
-# Display the Pie Chart of Movie Certificate Distribution
-st.plotly_chart(fig5)
-
-# Display the Line Chart of Movie Release Year Trends
-st.plotly_chart(fig6)
-
-# Display the Heatmap
-st.plotly_chart(fig7)
+# You can add more customization or features to your Streamlit app as needed.
