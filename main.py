@@ -88,4 +88,3 @@ elif visualization_option == "Heatmap":
     st.subheader("Correlation Matrix")
     st.table(correlation_matrix)
 
-# You can add more customization or features to your Streamlit app as needed.
