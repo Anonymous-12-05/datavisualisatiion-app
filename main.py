@@ -5,18 +5,6 @@ import plotly.express as px
 # Load the CSV file into a DataFrame
 df = pd.read_csv('movies.csv')
 
-# Streamlit App
-st.title("Movie Data Visualization")
-
-# Create a dashboard layout using st.sidebar
-st.sidebar.subheader("Dashboard")
-
-# Define a selectbox to choose the visualization
-visualization_option = st.sidebar.selectbox("Select Visualization", ["Histogram", "Bar Chart", "Scatter Plot", "Box Plot", "Pie Chart", "Line Chart", "Heatmap"])
-
-# Data Visualizations
-st.subheader("Data Visualization")
-
 # 1. Histogram of IMDb Ratings
 fig1 = px.histogram(df, x='imdb_rating', nbins=20, title='Distribution of IMDb Ratings')
 fig1.update_traces(marker_color='skyblue')
@@ -59,7 +47,18 @@ correlation_matrix = df[columns_for_heatmap].corr()
 # Create a heatmap
 fig7 = px.imshow(correlation_matrix, x=columns_for_heatmap, y=columns_for_heatmap)
 
+# Streamlit App
+st.title("Movie Data Visualization")
+
+# Create a dashboard layout using st.sidebar
+st.sidebar.subheader("Dashboard")
+
+# Define a selectbox to choose the visualization
+visualization_option = st.sidebar.selectbox("Select Visualization", ["Histogram", "Bar Chart", "Scatter Plot", "Box Plot", "Pie Chart", "Line Chart", "Heatmap"])
+
 # Display the selected visualization in the main content area
+st.subheader("Data Visualization")
+
 if visualization_option == "Histogram":
     st.plotly_chart(fig1)
     st.subheader("Histogram Data")
@@ -88,3 +87,4 @@ elif visualization_option == "Heatmap":
     st.plotly_chart(fig7)
     st.subheader("Correlation Matrix")
     st.table(correlation_matrix)
+
